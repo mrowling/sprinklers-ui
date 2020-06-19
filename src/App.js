@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import { sprinklers } from "./config/sprinklers";
 import SprinklerButtonGroup from "./components/SprinklerButtonGroup";
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <SprinklerButtonGroup />
+        <SprinklerButtonGroup sprinklers={sprinklers} />
       </header>
     </div>
   );
