@@ -1,25 +1,37 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { AppBar, Button } from "@material-ui/core";
+
 import { useAuth0 } from "../react-auth0-spa";
+import NavButton from "./NavLink";
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
-    <div>
+    <AppBar position="fixed">
       {!isAuthenticated && (
-        <button onClick={() => loginWithRedirect({})}>Log in</button>
+        <Button color="inherit" onClick={() => loginWithRedirect({})}>
+          Login
+        </Button>
       )}
 
       {isAuthenticated && (
         <span>
-          <button onClick={() => logout()}>Log out</button>
-          <Link to="/">Home</Link>&nbsp;
-          <Link to="/profile">Profile</Link>
-          <Link to="/external-api">External API</Link>
+          <NavButton color="inherit" to="/">
+            HOME
+          </NavButton>
+          <NavButton color="inherit" to="/profile">
+            PROFILE
+          </NavButton>
+          <NavButton color="inherit" to="/external-api">
+            External API
+          </NavButton>
+          <Button color="inherit" onClick={() => logout()}>
+            Log out
+          </Button>
         </span>
       )}
-    </div>
+    </AppBar>
   );
 };
 
