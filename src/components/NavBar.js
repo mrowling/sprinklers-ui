@@ -23,8 +23,8 @@ const NavBar = () => {
           <NavButton color="inherit" to="/profile">
             PROFILE
           </NavButton>
-          <NavButton color="inherit" to="/external-api">
-            External API
+          <NavButton color="inherit" to="/sprinklers">
+            SPRINKLERS
           </NavButton>
           <Button color="inherit" onClick={() => logout()}>
             Log out

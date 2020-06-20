@@ -1,17 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import logo from "./logo.svg";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { useAuth0 } from "./react-auth0-spa";
 
-import { sprinklers } from "./config/sprinklers";
-import SprinklerButtonGroup from "./components/SprinklerButtonGroup";
-
 import { Router, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
-import ExternalApi from "./components/ExternalApi";
+import SprinklerPage from "./components/SprinklerPage";
 
 import history from "./utils/history";
 import PrivateRoute from "./components/PrivateRoute";
@@ -48,7 +44,7 @@ function App() {
           <Switch>
             <Route path="/" exact />
             <PrivateRoute path="/profile" component={Profile} />
-            <PrivateRoute path="/external-api" component={ExternalApi} />
+            <PrivateRoute path="/sprinklers" component={SprinklerPage} />
           </Switch>
         </main>
       </Router>
