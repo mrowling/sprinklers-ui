@@ -8,16 +8,23 @@ import { callApi } from "../utils/callApi";
 
 import { Grid } from "@material-ui/core";
 
+import SprinkerDisplay from "./SprinklerDisplay";
+
 const ExternalApi = () => {
-  const [showResult, setShowResult] = useState(false);
-  const [apiMessage, setApiMessage] = useState("");
+  const [apiMessage, setApiMessage] = useState({ nw: false, ne: false });
   const { getIdTokenClaims } = useAuth0();
 
-  const _callApi = async (shortName) => {
+  const setResponse = (responseData, shortName) => {
+    const newApiMessage = Object.assign({}, apiMessage);
+    const { running } = responseData;
+    newApiMessage[shortName] = running;
+    setApiMessage(newApiMessage);
+  };
+
+  const _callApi = (shortName) => async () => {
     try {
       const responseData = await callApi(getIdTokenClaims, shortName);
-      setShowResult(true);
-      setApiMessage(responseData);
+      setResponse(responseData, shortName);
     } catch (error) {
       console.error(error);
     }
@@ -27,26 +34,14 @@ const ExternalApi = () => {
     <>
       <h1>External API</h1>
       <Grid container>
-        <SprinkerButton callApi={_callApi} shortName="ne">
-          NorthEast
-        </SprinkerButton>
-        <SprinkerButton callApi={_callApi} shortName="nw">
-          NorthWest
-        </SprinkerButton>
-        <SprinkerButton callApi={_callApi} shortName="ce">
-          CentreEast
-        </SprinkerButton>
-        <SprinkerButton callApi={_callApi} shortName="cw">
-          CentreWest
-        </SprinkerButton>
-        <SprinkerButton callApi={_callApi} shortName="se">
-          SouthEast
-        </SprinkerButton>
-        <SprinkerButton callApi={_callApi} shortName="sw">
-          SouthWest
-        </SprinkerButton>
+        <SprinkerDisplay fullName="NorthWest" content={apiMessage["nw"]}>
+          <SprinkerButton callApi={_callApi("nw")} />
+        </SprinkerDisplay>
+        <SprinkerDisplay fullName="NorthEast" content={apiMessage["ne"]}>
+          <SprinkerButton callApi={_callApi("ne")} />
+        </SprinkerDisplay>
       </Grid>
-      {showResult && <code>{JSON.stringify(apiMessage, null, 2)}</code>}
+      <code>{JSON.stringify(apiMessage, null, 2)}</code>
     </>
   );
 };
