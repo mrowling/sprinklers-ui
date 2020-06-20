@@ -8,16 +8,24 @@ const SprinklerPage = () => {
     <>
       <Grid container spacing={3}>
         <Grid container item justify="space-evenly">
-          <SprinkerDisplay fullName="NorthWest" shortName="nw" />
-          <SprinkerDisplay fullName="NorthEast" shortName="ne" />
+          <SprinkerDisplay fullName="NW" shortName="nw" />
+          <SprinkerDisplay fullName="NE" shortName="ne" />
+          <SprinkerDisplay fullName="N" shortName="northGroup" />
         </Grid>
         <Grid container item justify="space-evenly">
-          <SprinkerDisplay fullName="CentreWest" shortName="cw" />
-          <SprinkerDisplay fullName="CentreEast" shortName="ce" />
+          <SprinkerDisplay fullName="CW" shortName="cw" />
+          <SprinkerDisplay fullName="CE" shortName="ce" />
+          <SprinkerDisplay fullName="C" shortName="centreGroup" />
         </Grid>
         <Grid container item justify="space-evenly">
-          <SprinkerDisplay fullName="Southest" shortName="sw" />
-          <SprinkerDisplay fullName="SouthEast" shortName="se" />
+          <SprinkerDisplay fullName="SW" shortName="sw" />
+          <SprinkerDisplay fullName="SE" shortName="se" />
+          <SprinkerDisplay fullName="S" shortName="southGroup" />
+        </Grid>
+        <Grid container item justify="space-evenly">
+          <SprinkerDisplay fullName="E" shortName="eastGroup" />
+          <SprinkerDisplay fullName="W" shortName="westGroup" />
+          <SprinkerDisplay fullName="All" shortName="allGroup" />
         </Grid>
       </Grid>
     </>
