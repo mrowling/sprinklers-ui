@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 import PumpDisplay from "./PumpDisplay";
 import SprinkerControl from "./SprinklerControl";
@@ -10,6 +11,7 @@ import { getApi } from "../utils/pumpApi";
 const SprinklerPage = () => {
   const [running, setRunning] = useState(false);
   const [estimatedEndTime, setEstimatedEndTime] = useState();
+  const [snackBarMessage, setSnackBarMessage] = useState(false);
   const { getIdTokenClaims } = useAuth0();
 
   const getPumpData = async () => {
@@ -27,6 +29,13 @@ const SprinklerPage = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackBarMessage(false);
+  };
+
   return (
     <>
       <Grid container spacing={3}>
@@ -38,15 +47,47 @@ const SprinklerPage = () => {
           />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerControl fullName="North" shortName="north" />
-          <SprinkerControl fullName="Centre" shortName="middle" />
-          <SprinkerControl fullName="South" shortName="south" />
+          <SprinkerControl
+            setSnackBarMessage={setSnackBarMessage}
+            fullName="North"
+            shortName="north"
+          />
+          <SprinkerControl
+            setSnackBarMessage={setSnackBarMessage}
+            fullName="Centre"
+            shortName="middle"
+          />
+          <SprinkerControl
+            setSnackBarMessage={setSnackBarMessage}
+            fullName="South"
+            shortName="south"
+          />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerControl fullName="East" shortName="east" />
-          <SprinkerControl fullName="West" shortName="west" />
+          <SprinkerControl
+            setSnackBarMessage={setSnackBarMessage}
+            fullName="East"
+            shortName="east"
+          />
+          <SprinkerControl
+            setSnackBarMessage={setSnackBarMessage}
+            fullName="West"
+            shortName="west"
+          />
         </Grid>
       </Grid>
+      <Snackbar
+        open={!!snackBarMessage}
+        autoHideDuration={5000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackBarMessage.severity}
+        >
+          {snackBarMessage.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
