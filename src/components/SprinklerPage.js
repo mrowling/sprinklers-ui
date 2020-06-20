@@ -6,9 +6,19 @@ import SprinkerDisplay from "./SprinklerDisplay";
 const SprinklerPage = () => {
   return (
     <>
-      <Grid container>
-        <SprinkerDisplay fullName="NorthWest" shortName="nw" />
-        <SprinkerDisplay fullName="NorthEast" shortName="ne" />
+      <Grid container spacing={3}>
+        <Grid container item justify="space-evenly">
+          <SprinkerDisplay fullName="NorthWest" shortName="nw" />
+          <SprinkerDisplay fullName="NorthEast" shortName="ne" />
+        </Grid>
+        <Grid container item justify="space-evenly">
+          <SprinkerDisplay fullName="CentreWest" shortName="cw" />
+          <SprinkerDisplay fullName="CentreEast" shortName="ce" />
+        </Grid>
+        <Grid container item justify="space-evenly">
+          <SprinkerDisplay fullName="Southest" shortName="sw" />
+          <SprinkerDisplay fullName="SouthEast" shortName="se" />
+        </Grid>
       </Grid>
     </>
   );
