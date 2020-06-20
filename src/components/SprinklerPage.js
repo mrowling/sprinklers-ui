@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import SprinkerDisplay from "./SprinklerDisplay";
+import SprinkerDisplay from "./PumpDisplay";
 import SprinkerControl from "./SprinklerControl";
 
 const SprinklerPage = () => {
@@ -9,23 +9,16 @@ const SprinklerPage = () => {
     <>
       <Grid container spacing={3}>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerDisplay fullName="NW" shortName="nw" />
-          <SprinkerDisplay fullName="NE" shortName="ne" />
-          <SprinkerControl fullName="N" shortName="nw" />
+          <SprinkerDisplay name="Pump" />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerDisplay fullName="CW" shortName="cw" />
-          <SprinkerDisplay fullName="CE" shortName="ce" />
-          <SprinkerControl fullName="C" shortName="centreGroup" />
+          <SprinkerControl fullName="North" shortName="north" />
+          <SprinkerControl fullName="Centre" shortName="middle" />
+          <SprinkerControl fullName="South" shortName="south" />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerDisplay fullName="SW" shortName="sw" />
-          <SprinkerDisplay fullName="SE" shortName="se" />
-          <SprinkerControl fullName="S" shortName="southGroup" />
-        </Grid>
-        <Grid container item justify="space-evenly" alignItems="center">
-          <SprinkerControl fullName="E" shortName="eastGroup" />
-          <SprinkerControl fullName="W" shortName="westGroup" />
+          <SprinkerControl fullName="East" shortName="east" />
+          <SprinkerControl fullName="West" shortName="west" />
         </Grid>
       </Grid>
     </>

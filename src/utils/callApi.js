@@ -1,8 +1,9 @@
-const baseUrl = "http://127.0.0.1:8000/sprinkler/";
-
-const callApi = (method) => async (getIdTokenClaims, shortName) => {
+export const callApi = (baseUrl) => (method) => async (
+  getIdTokenClaims,
+  path = ""
+) => {
   const { __raw: jwt } = await getIdTokenClaims();
-  const response = await fetch(`${baseUrl}${shortName}`, {
+  const response = await fetch(`${baseUrl}${path}`, {
     method: method,
     headers: {
       Authorization: `Bearer ${jwt}`,
