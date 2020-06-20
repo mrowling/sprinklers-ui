@@ -8,7 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Countdown from "react-countdown";
 
 function PumpDisplay(props) {
-  const { name, estimatedEndTime, running } = props;
+  const { name, estimatedEndTime, active } = props;
   const countdownRender = ({ minutes, seconds, completed }) =>
     completed ? null : `${minutes}:${seconds}`;
 
@@ -18,8 +18,8 @@ function PumpDisplay(props) {
         <CardHeader title={name} />
         <CardContent>
           <Box height={50}>
-            {running && <CircularProgress color="primary" />}
-            {!running && (
+            {active && <CircularProgress color="primary" />}
+            {!active && (
               <PauseCircleOutlineIcon fontSize="large" color="primary" />
             )}
           </Box>

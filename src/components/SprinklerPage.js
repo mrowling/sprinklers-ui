@@ -9,7 +9,7 @@ import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
 
 const SprinklerPage = () => {
-  const [running, setRunning] = useState(false);
+  const [pumpActive, setPumpActive] = useState(false);
   const [estimatedEndTime, setEstimatedEndTime] = useState();
   const [snackBarMessage, setSnackBarMessage] = useState(false);
   const { getIdTokenClaims } = useAuth0();
@@ -17,7 +17,7 @@ const SprinklerPage = () => {
   const getPumpData = async () => {
     const responseData = await getApi(getIdTokenClaims);
     const { running, estimated_end_time } = responseData;
-    setRunning(running);
+    setPumpActive(running);
     setEstimatedEndTime(estimated_end_time);
   };
 
@@ -43,7 +43,7 @@ const SprinklerPage = () => {
           <PumpDisplay
             name="Pump"
             estimatedEndTime={estimatedEndTime}
-            running={running}
+            active={pumpActive}
           />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
