@@ -42,8 +42,8 @@ function SprinklerControl(props) {
         </Card>
       </Box>
       <Snackbar
-        open={snackBarMessage}
-        autoHideDuration={6000}
+        open={!!snackBarMessage}
+        autoHideDuration={5000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error">
