@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -20,16 +21,18 @@ function SprinklerDisplay(props) {
   };
 
   return (
-    <Card>
-      <CardHeader title={fullName} />
-      <CardContent>
-        {running && <div>Active</div>}
-        {!running && <div>Inactive</div>}
-      </CardContent>
-      <CardActions>
-        <SprinkerButton callApi={triggerSprinkler} />
-      </CardActions>
-    </Card>
+    <Box width={1 / 4}>
+      <Card>
+        <CardHeader title={fullName} />
+        <CardContent>
+          {running && <div>Active</div>}
+          {!running && <div>Inactive</div>}
+        </CardContent>
+        <CardActions>
+          <SprinkerButton callApi={triggerSprinkler} />
+        </CardActions>
+      </Card>
+    </Box>
   );
 }
 
