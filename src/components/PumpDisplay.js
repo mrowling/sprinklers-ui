@@ -20,23 +20,7 @@ function PumpDisplay(props) {
     const responseData = await getApi(getIdTokenClaims);
     const { running, estimated_end_time } = responseData;
     setRunning(running);
-    // setTimeRemaining(calculateTimeRemaining(estimated_end_time));
     setEstimatedEndTime(estimated_end_time);
-  };
-
-  const msToSec = (ms) => ms / 1000;
-
-  const calculateTimeRemaining = (estimatedEndTime) => {
-    if (estimatedEndTime) {
-      const d = new Date(estimatedEndTime);
-      const now = new Date();
-      const diffTime = d - now;
-      if (diffTime < 0) {
-        return null;
-      }
-      return Math.floor(msToSec(diffTime));
-    }
-    return null;
   };
 
   useEffect(() => {
