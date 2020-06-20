@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import InvertColorsIcon from "@material-ui/icons/InvertColors";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import SprinkerButton from "./SprinklerButton";
 import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
 
@@ -21,17 +20,25 @@ function PumpDisplay(props) {
     setRunning(running);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getState();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Box width={1 / 4}>
       <Card>
         <CardHeader title={name} />
         <CardContent>
-          {running && <InvertColorsIcon color="primary" />}
-          {!running && <InvertColorsIcon color="secondary" />}
+          <Box height={50}>
+            {running && <CircularProgress color="primary" />}
+            {!running && (
+              <PauseCircleOutlineIcon fontSize="large" color="primary" />
+            )}
+          </Box>
         </CardContent>
-        <CardActions>
-          <SprinkerButton callApi={getState} />
-        </CardActions>
       </Card>
     </Box>
   );
