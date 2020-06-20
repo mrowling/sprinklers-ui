@@ -3,22 +3,19 @@
 import React, { useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 
+import SprinkerButton from "./SprinklerButton";
+import { callApi } from "../utils/callApi";
+
+import { Grid } from "@material-ui/core";
+
 const ExternalApi = () => {
   const [showResult, setShowResult] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
-  const { getTokenSilently, getIdTokenClaims } = useAuth0();
+  const { getIdTokenClaims } = useAuth0();
 
-  const callApi = async () => {
+  const _callApi = async (shortName) => {
     try {
-      const { __raw: jwt } = await getIdTokenClaims();
-      const response = await fetch("http://127.0.0.1:8000/sprinkler/nw", {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-
-      const responseData = await response.json();
-
+      const responseData = await callApi(getIdTokenClaims, shortName);
       setShowResult(true);
       setApiMessage(responseData);
     } catch (error) {
@@ -29,7 +26,26 @@ const ExternalApi = () => {
   return (
     <>
       <h1>External API</h1>
-      <button onClick={callApi}>Ping API</button>
+      <Grid container>
+        <SprinkerButton callApi={_callApi} shortName="ne">
+          NorthEast
+        </SprinkerButton>
+        <SprinkerButton callApi={_callApi} shortName="nw">
+          NorthWest
+        </SprinkerButton>
+        <SprinkerButton callApi={_callApi} shortName="ce">
+          CentreEast
+        </SprinkerButton>
+        <SprinkerButton callApi={_callApi} shortName="cw">
+          CentreWest
+        </SprinkerButton>
+        <SprinkerButton callApi={_callApi} shortName="se">
+          SouthEast
+        </SprinkerButton>
+        <SprinkerButton callApi={_callApi} shortName="sw">
+          SouthWest
+        </SprinkerButton>
+      </Grid>
       {showResult && <code>{JSON.stringify(apiMessage, null, 2)}</code>}
     </>
   );
