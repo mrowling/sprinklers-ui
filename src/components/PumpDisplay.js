@@ -12,12 +12,29 @@ import { getApi } from "../utils/pumpApi";
 function PumpDisplay(props) {
   const { name } = props;
   const [running, setRunning] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState();
   const { getIdTokenClaims } = useAuth0();
 
   const getState = async () => {
     const responseData = await getApi(getIdTokenClaims);
-    const { running } = responseData;
+    const { running, estimated_end_time } = responseData;
     setRunning(running);
+    setTimeRemaining(calculateTimeRemaining(estimated_end_time));
+  };
+
+  const msToSec = (ms) => ms / 1000;
+
+  const calculateTimeRemaining = (estimatedEndTime) => {
+    if (estimatedEndTime) {
+      const d = new Date(estimatedEndTime);
+      const now = new Date();
+      const diffTime = d - now;
+      if (diffTime < 0) {
+        return null;
+      }
+      return Math.floor(msToSec(diffTime));
+    }
+    return null;
   };
 
   useEffect(() => {
@@ -33,11 +50,12 @@ function PumpDisplay(props) {
         <CardHeader title={name} />
         <CardContent>
           <Box height={50}>
-            {running && <CircularProgress color="primary" />}
-            {!running && (
+            {running && timeRemaining && <CircularProgress color="primary" />}
+            {(!running || (running && !timeRemaining)) && (
               <PauseCircleOutlineIcon fontSize="large" color="primary" />
             )}
           </Box>
+          <Box>{timeRemaining && `${timeRemaining}s`}</Box>
         </CardContent>
       </Card>
     </Box>
