@@ -7,6 +7,7 @@ import SprinkerControl from "./SprinklerControl";
 
 import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
+import { putApi } from "../utils/sprinklerApi";
 
 const SprinklerPage = () => {
   const [pumpActive, setPumpActive] = useState(false);
@@ -15,6 +16,19 @@ const SprinklerPage = () => {
   const [snackBarMessage, setSnackBarMessage] = useState(false);
   const [incrementCount, setIncrementCount] = useState(0);
   const { getIdTokenClaims } = useAuth0();
+
+  const triggerSprinkler = (shortName) => async () => {
+    setActiveSprinkler(shortName);
+    setIncrementCount(incrementCount + 1);
+    const responseData = await putApi(getIdTokenClaims, `/${shortName}`);
+    const { success, message } = responseData;
+    const defaultMessage = success ? "Success" : "An Error Occured";
+    const snackBarMessage = {
+      message: message || defaultMessage,
+      severity: success ? "success" : "error",
+    };
+    setSnackBarMessage(snackBarMessage);
+  };
 
   const getPumpData = async () => {
     const responseData = await getApi(getIdTokenClaims);
@@ -57,25 +71,22 @@ const SprinklerPage = () => {
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
           <SprinkerControl
-            setSnackBarMessage={setSnackBarMessage}
-            fullName="North"
-            shortName="north"
+            triggerSprinkler={triggerSprinkler("north")}
+            name="North"
             buttonActive={!activeSprinkler || activeSprinkler === "north"}
             displayActive={activeSprinkler === "north"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
-            setSnackBarMessage={setSnackBarMessage}
-            fullName="Centre"
-            shortName="middle"
+            triggerSprinkler={triggerSprinkler("middle")}
+            name="Centre"
             buttonActive={!activeSprinkler || activeSprinkler === "middle"}
             displayActive={activeSprinkler === "middle"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
-            setSnackBarMessage={setSnackBarMessage}
-            fullName="South"
-            shortName="south"
+            triggerSprinkler={triggerSprinkler("south")}
+            name="South"
             buttonActive={!activeSprinkler || activeSprinkler === "south"}
             displayActive={activeSprinkler === "south"}
             activeIcons={incrementCount}
@@ -83,17 +94,15 @@ const SprinklerPage = () => {
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
           <SprinkerControl
-            setSnackBarMessage={setSnackBarMessage}
-            fullName="East"
-            shortName="east"
+            triggerSprinkler={triggerSprinkler("east")}
+            name="East"
             buttonActive={!activeSprinkler || activeSprinkler === "east"}
             displayActive={activeSprinkler === "east"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
-            setSnackBarMessage={setSnackBarMessage}
-            fullName="West"
-            shortName="west"
+            triggerSprinkler={triggerSprinkler("west")}
+            name="West"
             buttonActive={!activeSprinkler || activeSprinkler === "west"}
             displayActive={activeSprinkler === "west"}
             activeIcons={incrementCount}

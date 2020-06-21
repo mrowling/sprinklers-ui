@@ -7,30 +7,15 @@ import InvertColorsIcon from "@material-ui/icons/InvertColors";
 import InvertColorsOffIcon from "@material-ui/icons/InvertColorsOff";
 
 import SprinkerButton from "./SprinklerButton";
-import { useAuth0 } from "../react-auth0-spa";
-import { putApi } from "../utils/sprinklerApi";
 
 function SprinklerControl(props) {
   const {
     activeIcons,
     displayActive,
     buttonActive,
-    fullName,
-    shortName,
-    setSnackBarMessage,
+    name,
+    triggerSprinkler,
   } = props;
-  const { getIdTokenClaims } = useAuth0();
-
-  const triggerSprinkler = async () => {
-    const responseData = await putApi(getIdTokenClaims, `/${shortName}`);
-    const { success, message } = responseData;
-    const defaultMessage = success ? "Success" : "An Error Occured";
-    const snackBarMessage = {
-      message: message || defaultMessage,
-      severity: success ? "success" : "error",
-    };
-    setSnackBarMessage(snackBarMessage);
-  };
 
   const activeIconElements = [];
   if (displayActive) {
@@ -41,7 +26,7 @@ function SprinklerControl(props) {
   return (
     <Box width={1 / 4}>
       <Card>
-        <CardHeader title={fullName} />
+        <CardHeader title={name} />
         {displayActive ? (
           activeIconElements
         ) : (
