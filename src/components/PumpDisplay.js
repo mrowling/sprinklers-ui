@@ -23,12 +23,14 @@ function PumpDisplay(props) {
               <PauseCircleOutlineIcon fontSize="large" color="primary" />
             )}
           </Box>
-          {estimatedEndTime && (
-            <Countdown
-              date={new Date(estimatedEndTime)}
-              renderer={countdownRender}
-            />
-          )}
+          <Box height={30}>
+            {estimatedEndTime && (
+              <Countdown
+                date={new Date(estimatedEndTime)}
+                renderer={countdownRender}
+              />
+            )}
+          </Box>
         </CardContent>
       </Card>
     </Box>
