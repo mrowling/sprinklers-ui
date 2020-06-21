@@ -17,9 +17,6 @@ const NavBar = () => {
 
       {isAuthenticated && (
         <span>
-          <NavButton color="inherit" to="/">
-            HOME
-          </NavButton>
           <NavButton color="inherit" to="/profile">
             PROFILE
           </NavButton>
