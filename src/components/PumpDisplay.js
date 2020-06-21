@@ -10,7 +10,7 @@ import Countdown from "react-countdown";
 function PumpDisplay(props) {
   const { name, estimatedEndTime, active } = props;
   const countdownRender = ({ minutes, seconds, completed }) =>
-    completed ? null : `${minutes}:${seconds}`;
+    completed ? null : `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
   return (
     <Box width={"90%"}>
