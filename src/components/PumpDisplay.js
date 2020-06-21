@@ -13,7 +13,7 @@ function PumpDisplay(props) {
     completed ? null : `${minutes}:${seconds}`;
 
   return (
-    <Box width={1 / 4}>
+    <Box width={"90%"}>
       <Card>
         <CardHeader title={name} />
         <CardContent>
