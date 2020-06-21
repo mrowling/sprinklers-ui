@@ -1,8 +1,8 @@
 import { callApi } from "./callApi";
 
-const baseUrl = "http://127.0.0.1:8000/sprinkler";
+const basePath = "sprinkler";
 
-const baseApi = callApi(baseUrl);
+const baseApi = callApi(basePath);
 
 export const getApi = baseApi("GET");
 export const putApi = baseApi("PUT");

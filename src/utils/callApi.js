@@ -1,9 +1,12 @@
-export const callApi = (baseUrl) => (method) => async (
+import { config } from "../config";
+
+export const callApi = (basePath) => (method) => async (
   getIdTokenClaims,
   path = ""
 ) => {
+  const { apiHost, protocol } = config;
   const { __raw: jwt } = await getIdTokenClaims();
-  const response = await fetch(`${baseUrl}${path}`, {
+  const response = await fetch(`${protocol}://${apiHost}/${basePath}${path}`, {
     method: method,
     headers: {
       Authorization: `Bearer ${jwt}`,
