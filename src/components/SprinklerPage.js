@@ -17,9 +17,14 @@ const SprinklerPage = () => {
   const [incrementCount, setIncrementCount] = useState(0);
   const { getIdTokenClaims } = useAuth0();
 
-  const triggerSprinkler = (shortName) => async () => {
+  const preemptivelySetState = (shortName) => {
     setActiveSprinkler(shortName);
     setIncrementCount(incrementCount + 1);
+    setPumpActive(true);
+  };
+
+  const triggerSprinkler = (shortName) => async () => {
+    preemptivelySetState(shortName);
     const responseData = await putApi(getIdTokenClaims, `/${shortName}`);
     const { success, message } = responseData;
     const defaultMessage = success ? "Success" : "An Error Occured";
