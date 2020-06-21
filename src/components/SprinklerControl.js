@@ -12,6 +12,7 @@ import { putApi } from "../utils/sprinklerApi";
 
 function SprinklerControl(props) {
   const {
+    activeIcons,
     displayActive,
     buttonActive,
     fullName,
@@ -31,17 +32,26 @@ function SprinklerControl(props) {
     setSnackBarMessage(snackBarMessage);
   };
 
+  const activeIconElements = [];
+  if (displayActive) {
+    for (let index = 0; index < (activeIcons || 1); index++) {
+      activeIconElements.push(<InvertColorsIcon key={index} color="primary" />);
+    }
+  }
   return (
     <Box width={1 / 4}>
       <Card>
         <CardHeader title={fullName} />
         {displayActive ? (
-          <InvertColorsIcon color="primary" />
+          activeIconElements
         ) : (
           <InvertColorsOffIcon color="disabled" />
         )}
         <CardActions>
-          <SprinkerButton disabled={!buttonActive} callApi={triggerSprinkler} />
+          <SprinkerButton
+            disabled={!buttonActive || activeIcons >= 3}
+            callApi={triggerSprinkler}
+          />
         </CardActions>
       </Card>
     </Box>
