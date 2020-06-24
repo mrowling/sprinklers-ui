@@ -9,6 +9,7 @@ import PowerControl from "./PowerControl";
 import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
 import { putApi } from "../utils/sprinklerApi";
+import { putApi as putPowerApi } from "../utils/powerApi";
 
 const SprinklerPage = () => {
   const [pumpActive, setPumpActive] = useState(false);
@@ -16,7 +17,7 @@ const SprinklerPage = () => {
   const [estimatedEndTime, setEstimatedEndTime] = useState();
   const [snackBarMessage, setSnackBarMessage] = useState(false);
   const [incrementCount, setIncrementCount] = useState(0);
-  const [powerOn, setPowerOn] = useState(false);
+  const [isPowerActive, setIsPowerActive] = useState(false);
   const { getIdTokenClaims } = useAuth0();
 
   const preemptivelySetState = (shortName) => {
@@ -55,7 +56,7 @@ const SprinklerPage = () => {
     getPumpData();
     const interval = setInterval(() => {
       getPumpData();
-    }, 5000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -66,8 +67,9 @@ const SprinklerPage = () => {
     setSnackBarMessage(false);
   };
 
-  const togglePower = () => {
-    setPowerOn(!powerOn);
+  const togglePowerActive = async () => {
+    const { active } = await putPowerApi(getIdTokenClaims, !isPowerActive);
+    setIsPowerActive(active);
   };
 
   return (
@@ -79,7 +81,10 @@ const SprinklerPage = () => {
             estimatedEndTime={estimatedEndTime}
             active={pumpActive}
           />
-          <PowerControl isOn={powerOn} triggerToggle={togglePower} />
+          <PowerControl
+            isOn={isPowerActive}
+            triggerToggle={togglePowerActive}
+          />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
           <SprinkerControl
