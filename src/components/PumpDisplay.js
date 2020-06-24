@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -13,7 +13,7 @@ function PumpDisplay(props) {
     completed ? null : `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
   return (
-    <Box width={"90%"}>
+    <Box width={1 / 3}>
       <Card>
         <CardHeader title={name} />
         <CardContent>
