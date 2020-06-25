@@ -69,6 +69,9 @@ const SprinklerPage = () => {
 
   const togglePowerActive = async () => {
     const { active } = await putPowerApi(getIdTokenClaims, !isPowerActive);
+    if (!active) {
+      setIncrementCount(0);
+    }
     setIsPowerActive(active);
   };
 
