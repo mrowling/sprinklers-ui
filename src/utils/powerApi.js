@@ -12,3 +12,5 @@ export const putApi = (getIdTokenClaims, powerActive) => {
     body: JSON.stringify(body),
   });
 };
+
+export const getApi = baseApi("GET");

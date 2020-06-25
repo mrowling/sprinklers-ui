@@ -9,7 +9,10 @@ import PowerControl from "./PowerControl";
 import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
 import { putApi } from "../utils/sprinklerApi";
-import { putApi as putPowerApi } from "../utils/powerApi";
+import {
+  putApi as putPowerApi,
+  getApi as getPowerApi,
+} from "../utils/powerApi";
 
 const SprinklerPage = () => {
   const [pumpActive, setPumpActive] = useState(false);
@@ -52,10 +55,22 @@ const SprinklerPage = () => {
     setEstimatedEndTime(estimated_end_time);
   };
 
-  useEffect(() => {
+  const getPowerData = async () => {
+    const { active } = await getPowerApi(getIdTokenClaims);
+    if (!active) {
+      setIncrementCount(0);
+    }
+    setIsPowerActive(active);
+  };
+  const getData = () => {
     getPumpData();
+    getPowerData();
+  };
+
+  useEffect(() => {
+    getData();
     const interval = setInterval(() => {
-      getPumpData();
+      getData();
     }, 2000);
     return () => clearInterval(interval);
   }, []);
