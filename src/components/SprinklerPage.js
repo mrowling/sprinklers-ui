@@ -93,22 +93,29 @@ const SprinklerPage = () => {
           <SprinkerControl
             triggerSprinkler={triggerSprinkler("north")}
             name="North"
-            buttonActive={!activeSprinkler || activeSprinkler === "north"}
-            displayActive={activeSprinkler === "north"}
+            buttonActive={
+              isPowerActive && (!activeSprinkler || activeSprinkler === "north")
+            }
+            displayActive={isPowerActive && activeSprinkler === "north"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
             triggerSprinkler={triggerSprinkler("middle")}
             name="Centre"
-            buttonActive={!activeSprinkler || activeSprinkler === "middle"}
-            displayActive={activeSprinkler === "middle"}
+            buttonActive={
+              isPowerActive &&
+              (!activeSprinkler || activeSprinkler === "middle")
+            }
+            displayActive={isPowerActive && activeSprinkler === "middle"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
             triggerSprinkler={triggerSprinkler("south")}
             name="South"
-            buttonActive={!activeSprinkler || activeSprinkler === "south"}
-            displayActive={activeSprinkler === "south"}
+            buttonActive={
+              isPowerActive && (!activeSprinkler || activeSprinkler === "south")
+            }
+            displayActive={isPowerActive && activeSprinkler === "south"}
             activeIcons={incrementCount}
           />
         </Grid>
@@ -116,15 +123,19 @@ const SprinklerPage = () => {
           <SprinkerControl
             triggerSprinkler={triggerSprinkler("east")}
             name="East"
-            buttonActive={!activeSprinkler || activeSprinkler === "east"}
-            displayActive={activeSprinkler === "east"}
+            buttonActive={
+              isPowerActive && (!activeSprinkler || activeSprinkler === "east")
+            }
+            displayActive={isPowerActive && activeSprinkler === "east"}
             activeIcons={incrementCount}
           />
           <SprinkerControl
             triggerSprinkler={triggerSprinkler("west")}
             name="West"
-            buttonActive={!activeSprinkler || activeSprinkler === "west"}
-            displayActive={activeSprinkler === "west"}
+            buttonActive={
+              isPowerActive && (!activeSprinkler || activeSprinkler === "west")
+            }
+            displayActive={isPowerActive && activeSprinkler === "west"}
             activeIcons={incrementCount}
           />
         </Grid>
