@@ -5,6 +5,7 @@ import { Alert } from "@material-ui/lab";
 import PumpDisplay from "./PumpDisplay";
 import SprinkerControl from "./SprinklerControl";
 import PowerControl from "./PowerControl";
+import SequenceControl from "./SequenceControl";
 
 import { useAuth0 } from "../react-auth0-spa";
 import { getApi } from "../utils/pumpApi";
@@ -13,6 +14,7 @@ import {
   putApi as putPowerApi,
   getApi as getPowerApi,
 } from "../utils/powerApi";
+import { getApi as getSequenceApi } from "../utils/sequenceApi";
 
 const SprinklerPage = () => {
   const [pumpActive, setPumpActive] = useState(false);
@@ -90,6 +92,17 @@ const SprinklerPage = () => {
     setIsPowerActive(active);
   };
 
+  const triggerSequence = async () => {
+    const responseData = await getSequenceApi(getIdTokenClaims);
+    const { success, message } = responseData;
+    const defaultMessage = success ? "Success" : "An Error Occured";
+    const snackBarMessage = {
+      message: message || defaultMessage,
+      severity: success ? "success" : "error",
+    };
+    setSnackBarMessage(snackBarMessage);
+  };
+
   return (
     <>
       <Grid container spacing={3}>
@@ -153,6 +166,9 @@ const SprinklerPage = () => {
             displayActive={isPowerActive && activeSprinkler === "west"}
             activeIcons={incrementCount}
           />
+        </Grid>
+        <Grid container item justify="space-evenly" alignItems="center">
+          <SequenceControl triggerToggle={togglePowerActive} />
         </Grid>
       </Grid>
       <Snackbar
