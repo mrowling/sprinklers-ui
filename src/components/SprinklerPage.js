@@ -168,7 +168,7 @@ const SprinklerPage = () => {
           />
         </Grid>
         <Grid container item justify="space-evenly" alignItems="center">
-          <SequenceControl triggerToggle={togglePowerActive} />
+          <SequenceControl triggerToggle={triggerSequence} />
         </Grid>
       </Grid>
       <Snackbar
