@@ -64,9 +64,18 @@ const SprinklerPage = () => {
     }
     setIsPowerActive(active);
   };
-  const getData = () => {
-    getPumpData();
-    getPowerData();
+
+  let isDataLoading = false;
+
+  const getData = async () => {
+    if (!isDataLoading) {
+      isDataLoading = true;
+      try {
+        await Promise.all([getPumpData(), getPowerData()]);
+      } finally {
+        isDataLoading = false;
+      }
+    }
   };
 
   useEffect(() => {
